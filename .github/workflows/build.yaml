@@ -4,6 +4,7 @@ on:
   push:
     paths-ignore:
       - '.github/**'
+      - '.git/**'
       - 'README.md'
   workflow_dispatch:
 
@@ -27,10 +28,11 @@ jobs:
           echo "DATE=$DATE" >> $GITHUB_ENV
           echo "TAG_NAME=$DATE" >> $GITHUB_ENV
 
-      - name: Zip repository (exclude .github and README.md)
+      - name: Zip repository
         run: |
           zip -r autobuild.zip . \
             -x "./.github/*" \
+            -x "./.git/*" \
             -x "./README.md"
           ls -lh autobuild.zip
 
